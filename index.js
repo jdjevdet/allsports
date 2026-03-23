@@ -10,14 +10,15 @@ const OUTPUT_FILE = path.join(__dirname, 'football-epg.xml');
 
 // --- ALL LEAGUES ---
 const LEAGUES = [
-  { id: '4335', name: 'La Liga',        prefix: 'laliga',    lang: 'es' },
-  { id: '4334', name: 'Ligue 1',        prefix: 'ligue1',    lang: 'fr' },
-  { id: '4332', name: 'Serie A',        prefix: 'seriea',    lang: 'it' },
-  { id: '4331', name: 'Bundesliga',     prefix: 'bundesliga',lang: 'de' },
-  { id: '4346', name: 'MLS',            prefix: 'mls',       lang: 'en' },
-  { id: '4344', name: 'Primeira Liga',  prefix: 'primeiraliga', lang: 'pt' },
-  { id: '4328', name: 'Premier League', prefix: 'epl',       lang: 'en' },
-  { id: '4668', name: 'Saudi Pro League', prefix: 'spl',     lang: 'ar' },
+  { id: '4335', name: 'La Liga',          prefix: 'laliga',       lang: 'es' },
+  { id: '4334', name: 'Ligue 1',          prefix: 'ligue1',       lang: 'fr' },
+  { id: '4332', name: 'Serie A',          prefix: 'seriea',       lang: 'it' },
+  { id: '4331', name: 'Bundesliga',       prefix: 'bundesliga',   lang: 'de' },
+  { id: '4346', name: 'MLS',              prefix: 'mls',          lang: 'en' },
+  { id: '4344', name: 'Primeira Liga',    prefix: 'primeiraliga', lang: 'pt' },
+  { id: '4328', name: 'Premier League',   prefix: 'epl',          lang: 'en' },
+  { id: '4668', name: 'Saudi Pro League', prefix: 'spl',          lang: 'ar' },
+  { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
 ];
 
 // --- 1. FETCH FIXTURES FOR A SINGLE LEAGUE ---
@@ -28,7 +29,15 @@ async function fetchFixtures(leagueId) {
   return data.events || [];
 }
 
-// --- 2. CONVERT A DATE + TIME TO XMLTV FORMAT ---
+// --- 2. FETCH LIVE EVENTS FOR A SINGLE LEAGUE ---
+async function fetchLiveEvents(leagueId) {
+  const url = `https://www.thesportsdb.com/api/v1/json/${API_KEY}/eventslive.php?id=${leagueId}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.events || [];
+}
+
+// --- 3. CONVERT A DATE + TIME TO XMLTV FORMAT ---
 function toXMLTVDate(dateStr, timeStr) {
   const dt = new Date(`${dateStr}T${timeStr}Z`);
   const pad = (n) => String(n).padStart(2, '0');
@@ -43,7 +52,7 @@ function toXMLTVDate(dateStr, timeStr) {
   );
 }
 
-// --- 3. SHIFT MINUTES ON AN XMLTV TIMESTAMP ---
+// --- 4. SHIFT MINUTES ON AN XMLTV TIMESTAMP ---
 function shiftMinutes(xmltvDate, mins) {
   const base = xmltvDate.replace(' +0000', '');
   const y  = base.slice(0, 4),  mo = base.slice(4, 6),  d  = base.slice(6, 8);
@@ -62,7 +71,7 @@ function shiftMinutes(xmltvDate, mins) {
   );
 }
 
-// --- 4. SANITIZE TEXT FOR XML ---
+// --- 5. SANITIZE TEXT FOR XML ---
 function escapeXML(str) {
   return str
     .replace(/&/g, '&amp;')
@@ -71,7 +80,7 @@ function escapeXML(str) {
     .replace(/"/g, '&quot;');
 }
 
-// --- 5. BUILD THE COMBINED XML FILE ---
+// --- 6. BUILD THE COMBINED XML FILE ---
 async function generateEPG() {
   console.log(`[${new Date().toISOString()}] Starting EPG generation for all leagues...`);
 
@@ -81,7 +90,14 @@ async function generateEPG() {
 
   for (const league of LEAGUES) {
     console.log(`  Fetching ${league.name}...`);
-    const events = await fetchFixtures(league.id);
+
+    const [events, liveEvents] = await Promise.all([
+      fetchFixtures(league.id),
+      fetchLiveEvents(league.id)
+    ]);
+
+    // Build a set of live event IDs for quick lookup
+    const liveIds = new Set((liveEvents).map(e => e.idEvent));
 
     if (events.length === 0) {
       console.log(`  No fixtures found for ${league.name}, skipping.`);
@@ -89,8 +105,10 @@ async function generateEPG() {
     }
 
     for (const event of events) {
-      const channelId  = `${league.prefix}-match-${event.idEvent}`;
-      const matchTitle = escapeXML(`${event.strHomeTeam} vs ${event.strAwayTeam}`);
+      const isLive = liveIds.has(event.idEvent);
+      const channelId   = `${league.prefix}-match-${event.idEvent}`;
+      const matchTitle  = escapeXML(`${event.strHomeTeam} vs ${event.strAwayTeam}`);
+      const liveTag     = isLive ? ' 🔴 LIVE' : '';
 
       // Channel block
       allChannels += `  <channel id="${channelId}">\n`;
@@ -113,15 +131,15 @@ async function generateEPG() {
       allProgrammes += `  <programme start="${preStart}" stop="${matchStart}" channel="${channelId}">\n`;
       allProgrammes += `    <title lang="${league.lang}">Next Match: ${matchTitle}</title>\n`;
       allProgrammes += `    <desc lang="${league.lang}">Up next: ${league.name} - ${matchTitle} | ${event.dateEvent}</desc>\n`;
-      allProgrammes += `    <category lang="en">Football</category>\n`;
+      allProgrammes += `    <category lang="en">${league.name}</category>\n`;
       if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
       allProgrammes += `  </programme>\n\n`;
 
-      // Block 2: The Match
+      // Block 2: The Match (with LIVE tag if applicable)
       allProgrammes += `  <programme start="${matchStart}" stop="${matchEnd}" channel="${channelId}">\n`;
-      allProgrammes += `    <title lang="${league.lang}">${matchTitle}</title>\n`;
-      allProgrammes += `    <desc lang="${league.lang}">${league.name} - ${matchTitle} | ${event.dateEvent}</desc>\n`;
-      allProgrammes += `    <category lang="en">Football</category>\n`;
+      allProgrammes += `    <title lang="${league.lang}">${matchTitle}${liveTag}</title>\n`;
+      allProgrammes += `    <desc lang="${league.lang}">${isLive ? '🔴 LIVE - ' : ''}${league.name} - ${matchTitle} | ${event.dateEvent}</desc>\n`;
+      allProgrammes += `    <category lang="en">${league.name}</category>\n`;
       if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
       allProgrammes += `  </programme>\n\n`;
 
@@ -129,7 +147,7 @@ async function generateEPG() {
       allProgrammes += `  <programme start="${matchEnd}" stop="${postEnd}" channel="${channelId}">\n`;
       allProgrammes += `    <title lang="${league.lang}">Match Ended: ${matchTitle}</title>\n`;
       allProgrammes += `    <desc lang="${league.lang}">The match has ended. ${league.name} - ${matchTitle} | ${event.dateEvent}</desc>\n`;
-      allProgrammes += `    <category lang="en">Football</category>\n`;
+      allProgrammes += `    <category lang="en">${league.name}</category>\n`;
       if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
       allProgrammes += `  </programme>\n\n`;
 
@@ -149,7 +167,7 @@ async function generateEPG() {
   console.log(`[${new Date().toISOString()}] EPG generated — ${totalMatches} matches across ${LEAGUES.length} leagues.`);
 }
 
-// --- 6. SERVE THE XML FILE ---
+// --- 7. SERVE THE XML FILE ---
 app.get('/epg.xml', (req, res) => {
   if (fs.existsSync(OUTPUT_FILE)) {
     res.setHeader('Content-Type', 'application/xml');
@@ -163,13 +181,13 @@ app.get('/', (req, res) => {
   res.send('Football EPG server is running. Access your EPG at /epg.xml');
 });
 
-// --- 7. SCHEDULE DAILY AUTO-REFRESH ---
+// --- 8. SCHEDULE DAILY AUTO-REFRESH ---
 cron.schedule('0 3 * * *', () => {
   console.log('Running scheduled EPG refresh...');
   generateEPG();
 });
 
-// --- 8. START SERVER + GENERATE ON BOOT ---
+// --- 9. START SERVER + GENERATE ON BOOT ---
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   generateEPG();
