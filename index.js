@@ -10,6 +10,7 @@ const OUTPUT_FILE = path.join(__dirname, 'football-epg.xml');
 
 // --- ALL LEAGUES ---
 const LEAGUES = [
+  // Domestic Leagues
   { id: '4335', name: 'La Liga',          prefix: 'laliga',       lang: 'es' },
   { id: '4334', name: 'Ligue 1',          prefix: 'ligue1',       lang: 'fr' },
   { id: '4332', name: 'Serie A',          prefix: 'seriea',       lang: 'it' },
@@ -18,7 +19,24 @@ const LEAGUES = [
   { id: '4344', name: 'Primeira Liga',    prefix: 'primeiraliga', lang: 'pt' },
   { id: '4328', name: 'Premier League',   prefix: 'epl',          lang: 'en' },
   { id: '4668', name: 'Saudi Pro League', prefix: 'spl',          lang: 'ar' },
+  // Motorsport
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
+  // International Tournaments
+  { id: '4429', name: 'FIFA World Cup',           prefix: 'worldcup',     lang: 'en' },
+  { id: '4502', name: 'UEFA Euro Championship',   prefix: 'euro',         lang: 'en' },
+  { id: '4499', name: 'Copa America',             prefix: 'copaam',       lang: 'es' },
+  { id: '4496', name: 'AFCON',                    prefix: 'afcon',        lang: 'en' },
+  { id: '4490', name: 'UEFA Nations League',      prefix: 'uefanl',       lang: 'en' },
+  { id: '5280', name: 'CONCACAF Nations League',  prefix: 'concacafnl',   lang: 'en' },
+  { id: '4562', name: 'International Friendlies', prefix: 'intlfriendly', lang: 'en' },
+  { id: '4503', name: 'FIFA Club World Cup',      prefix: 'clubwc',       lang: 'en' },
+  // World Cup Qualifying
+  { id: '6943', name: 'WC Qualifying UEFA',       prefix: 'wcq-uefa',     lang: 'en' },
+  { id: '5582', name: 'WC Qualifying CONMEBOL',   prefix: 'wcq-conmebol', lang: 'es' },
+  { id: '5973', name: 'WC Qualifying CONCACAF',   prefix: 'wcq-concacaf', lang: 'en' },
+  { id: '5583', name: 'WC Qualifying AFC',        prefix: 'wcq-afc',      lang: 'en' },
+  { id: '5733', name: 'WC Qualifying CAF',        prefix: 'wcq-caf',      lang: 'en' },
+  { id: '5517', name: 'WC Qualifying OFC',        prefix: 'wcq-ofc',      lang: 'en' },
 ];
 
 // --- 1. FETCH FIXTURES FOR A SINGLE LEAGUE ---
@@ -104,6 +122,9 @@ async function generateEPG() {
     }
 
     for (const event of events) {
+      // Skip events with missing team names
+      if (!event.strHomeTeam || !event.strAwayTeam) continue;
+
       const isLive     = liveIds.has(event.idEvent);
       const channelId  = `${league.prefix}-match-${event.idEvent}`;
       const matchTitle = escapeXML(`${event.strHomeTeam} vs ${event.strAwayTeam}`);
