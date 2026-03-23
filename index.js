@@ -29,15 +29,7 @@ async function fetchFixtures(leagueId) {
   return data.events || [];
 }
 
-// --- 2. FETCH LIVE EVENTS FOR A SINGLE LEAGUE ---
-async function fetchLiveEvents(leagueId) {
-  const url = `https://www.thesportsdb.com/api/v1/json/${API_KEY}/eventslive.php?id=${leagueId}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.events || [];
-}
-
-// --- 3. CONVERT A DATE + TIME TO XMLTV FORMAT ---
+// --- 2. CONVERT A DATE + TIME TO XMLTV FORMAT ---
 function toXMLTVDate(dateStr, timeStr) {
   const dt = new Date(`${dateStr}T${timeStr}Z`);
   const pad = (n) => String(n).padStart(2, '0');
@@ -52,7 +44,7 @@ function toXMLTVDate(dateStr, timeStr) {
   );
 }
 
-// --- 4. SHIFT MINUTES ON AN XMLTV TIMESTAMP ---
+// --- 3. SHIFT MINUTES ON AN XMLTV TIMESTAMP ---
 function shiftMinutes(xmltvDate, mins) {
   const base = xmltvDate.replace(' +0000', '');
   const y  = base.slice(0, 4),  mo = base.slice(4, 6),  d  = base.slice(6, 8);
@@ -71,7 +63,7 @@ function shiftMinutes(xmltvDate, mins) {
   );
 }
 
-// --- 5. SANITIZE TEXT FOR XML ---
+// --- 4. SANITIZE TEXT FOR XML ---
 function escapeXML(str) {
   return str
     .replace(/&/g, '&amp;')
@@ -80,7 +72,7 @@ function escapeXML(str) {
     .replace(/"/g, '&quot;');
 }
 
-// --- 6. BUILD THE COMBINED XML FILE ---
+// --- 5. BUILD THE COMBINED XML FILE ---
 async function generateEPG() {
   console.log(`[${new Date().toISOString()}] Starting EPG generation for all leagues...`);
 
@@ -91,13 +83,20 @@ async function generateEPG() {
   for (const league of LEAGUES) {
     console.log(`  Fetching ${league.name}...`);
 
-    const [events, liveEvents] = await Promise.all([
-      fetchFixtures(league.id),
-      fetchLiveEvents(league.id)
-    ]);
+    const events = await fetchFixtures(league.id);
 
-    // Build a set of live event IDs for quick lookup
-    const liveIds = new Set((liveEvents).map(e => e.idEvent));
+    // Determine live events by checking current time vs match window
+    const now = new Date();
+    const liveIds = new Set(
+      events
+        .filter(e => {
+          if (!e.dateEvent || !e.strTime) return false;
+          const start = new Date(`${e.dateEvent}T${e.strTime}Z`);
+          const end   = new Date(start.getTime() + 120 * 60 * 1000);
+          return now >= start && now <= end;
+        })
+        .map(e => e.idEvent)
+    );
 
     if (events.length === 0) {
       console.log(`  No fixtures found for ${league.name}, skipping.`);
@@ -105,10 +104,10 @@ async function generateEPG() {
     }
 
     for (const event of events) {
-      const isLive = liveIds.has(event.idEvent);
-      const channelId   = `${league.prefix}-match-${event.idEvent}`;
-      const matchTitle  = escapeXML(`${event.strHomeTeam} vs ${event.strAwayTeam}`);
-      const liveTag     = isLive ? ' 🔴 LIVE' : '';
+      const isLive     = liveIds.has(event.idEvent);
+      const channelId  = `${league.prefix}-match-${event.idEvent}`;
+      const matchTitle = escapeXML(`${event.strHomeTeam} vs ${event.strAwayTeam}`);
+      const liveTag    = isLive ? ' 🔴 LIVE' : '';
 
       // Channel block
       allChannels += `  <channel id="${channelId}">\n`;
@@ -167,7 +166,7 @@ async function generateEPG() {
   console.log(`[${new Date().toISOString()}] EPG generated — ${totalMatches} matches across ${LEAGUES.length} leagues.`);
 }
 
-// --- 7. SERVE THE XML FILE ---
+// --- 6. SERVE THE XML FILE ---
 app.get('/epg.xml', (req, res) => {
   if (fs.existsSync(OUTPUT_FILE)) {
     res.setHeader('Content-Type', 'application/xml');
@@ -181,13 +180,13 @@ app.get('/', (req, res) => {
   res.send('Football EPG server is running. Access your EPG at /epg.xml');
 });
 
-// --- 8. SCHEDULE DAILY AUTO-REFRESH ---
+// --- 7. SCHEDULE DAILY AUTO-REFRESH ---
 cron.schedule('0 3 * * *', () => {
   console.log('Running scheduled EPG refresh...');
   generateEPG();
 });
 
-// --- 9. START SERVER + GENERATE ON BOOT ---
+// --- 8. START SERVER + GENERATE ON BOOT ---
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   generateEPG();
