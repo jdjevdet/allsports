@@ -19,8 +19,16 @@ const LEAGUES = [
   { id: '4344', name: 'Primeira Liga',    prefix: 'primeiraliga', lang: 'pt' },
   { id: '4328', name: 'Premier League',   prefix: 'epl',          lang: 'en' },
   { id: '4668', name: 'Saudi Pro League', prefix: 'spl',          lang: 'ar' },
+  { id: '4849', name: 'Women\'s Super League', prefix: 'wsl',     lang: 'en' },
   // Motorsport
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
+  // UEFA Club Competitions
+  { id: '4480', name: 'UEFA Champions League',  prefix: 'ucl',  lang: 'en' },
+  { id: '4481', name: 'UEFA Europa League',     prefix: 'uel',  lang: 'en' },
+  { id: '5071', name: 'UEFA Conference League', prefix: 'uecl', lang: 'en' },
+  // Women's Football
+  { id: '4889', name: 'UEFA Women\'s Champions League', prefix: 'uwcl', lang: 'en' },
+  { id: '4865', name: 'UEFA Women\'s Euro',             prefix: 'weuro', lang: 'en' },
   // International Tournaments
   { id: '4429', name: 'FIFA World Cup',           prefix: 'worldcup',     lang: 'en' },
   { id: '4502', name: 'UEFA Euro Championship',   prefix: 'euro',         lang: 'en' },
@@ -94,9 +102,9 @@ function escapeXML(str) {
 async function generateEPG() {
   console.log(`[${new Date().toISOString()}] Starting EPG generation for all leagues...`);
 
-  let allChannels = '';
+  let allChannels   = '';
   let allProgrammes = '';
-  let totalMatches = 0;
+  let totalMatches  = 0;
 
   for (const league of LEAGUES) {
     console.log(`  Fetching ${league.name}...`);
@@ -122,7 +130,6 @@ async function generateEPG() {
     }
 
     for (const event of events) {
-      // Skip events with missing team names
       if (!event.strHomeTeam || !event.strAwayTeam) continue;
 
       const isLive     = liveIds.has(event.idEvent);
@@ -155,7 +162,7 @@ async function generateEPG() {
       if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
       allProgrammes += `  </programme>\n\n`;
 
-      // Block 2: The Match (with LIVE tag if applicable)
+      // Block 2: The Match
       allProgrammes += `  <programme start="${matchStart}" stop="${matchEnd}" channel="${channelId}">\n`;
       allProgrammes += `    <title lang="${league.lang}">${matchTitle}${liveTag}</title>\n`;
       allProgrammes += `    <desc lang="${league.lang}">${isLive ? '🔴 LIVE - ' : ''}${league.name} - ${matchTitle} | ${event.dateEvent}</desc>\n`;
@@ -178,7 +185,7 @@ async function generateEPG() {
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<!DOCTYPE tv SYSTEM "xmltv.dtd">\n` +
-    `<tv generator-info-name="FootballEPG">\n\n` +
+    `<tv generator-info-name="SportsEPG">\n\n` +
     allChannels + `\n` +
     allProgrammes +
     `</tv>`;
@@ -198,7 +205,7 @@ app.get('/epg.xml', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Football EPG server is running. Access your EPG at /epg.xml');
+  res.send('Sports EPG server is running. Access your EPG at /epg.xml');
 });
 
 // --- 7. SCHEDULE DAILY AUTO-REFRESH ---
