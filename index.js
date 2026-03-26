@@ -27,7 +27,7 @@ const LEAGUES = [
   { id: '4481', name: 'UEFA Europa League',     prefix: 'uel',  lang: 'en' },
   { id: '5071', name: 'UEFA Conference League', prefix: 'uecl', lang: 'en' },
   // Women's Football
-  { id: '4889', name: 'UEFA Women\'s Champions League', prefix: 'uwcl', lang: 'en' },
+  { id: '4889', name: 'UEFA Women\'s Champions League', prefix: 'uwcl',  lang: 'en' },
   { id: '4865', name: 'UEFA Women\'s Euro',             prefix: 'weuro', lang: 'en' },
   // International Tournaments
   { id: '4429', name: 'FIFA World Cup',           prefix: 'worldcup',     lang: 'en' },
@@ -39,12 +39,14 @@ const LEAGUES = [
   { id: '4562', name: 'International Friendlies', prefix: 'intlfriendly', lang: 'en' },
   { id: '4503', name: 'FIFA Club World Cup',      prefix: 'clubwc',       lang: 'en' },
   // World Cup Qualifying
-  { id: '6943', name: 'WC Qualifying UEFA',       prefix: 'wcq-uefa',     lang: 'en' },
-  { id: '5582', name: 'WC Qualifying CONMEBOL',   prefix: 'wcq-conmebol', lang: 'es' },
-  { id: '5973', name: 'WC Qualifying CONCACAF',   prefix: 'wcq-concacaf', lang: 'en' },
-  { id: '5583', name: 'WC Qualifying AFC',        prefix: 'wcq-afc',      lang: 'en' },
-  { id: '5733', name: 'WC Qualifying CAF',        prefix: 'wcq-caf',      lang: 'en' },
-  { id: '5517', name: 'WC Qualifying OFC',        prefix: 'wcq-ofc',      lang: 'en' },
+  { id: '5518', name: 'WC Qualifying UEFA',                prefix: 'wcq-uefa2',     lang: 'en' },
+  { id: '6943', name: 'WC Qualifying UEFA (Playoffs)',     prefix: 'wcq-uefa',      lang: 'en' },
+  { id: '5582', name: 'WC Qualifying CONMEBOL',            prefix: 'wcq-conmebol',  lang: 'es' },
+  { id: '5973', name: 'WC Qualifying CONCACAF',            prefix: 'wcq-concacaf',  lang: 'en' },
+  { id: '5583', name: 'WC Qualifying AFC',                 prefix: 'wcq-afc',       lang: 'en' },
+  { id: '5733', name: 'WC Qualifying CAF',                 prefix: 'wcq-caf',       lang: 'en' },
+  { id: '5517', name: 'WC Qualifying OFC',                 prefix: 'wcq-ofc',       lang: 'en' },
+  { id: '5850', name: 'WC Qualifying Inter-Confederation', prefix: 'wcq-intercof',  lang: 'en' },
 ];
 
 // --- 1. FETCH FIXTURES FOR A SINGLE LEAGUE ---
@@ -111,7 +113,6 @@ async function generateEPG() {
 
     const events = await fetchFixtures(league.id);
 
-    // Determine live events by checking current time vs match window
     const now = new Date();
     const liveIds = new Set(
       events
