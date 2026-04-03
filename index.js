@@ -20,7 +20,7 @@ const LEAGUES = [
   { id: '4328', name: 'Premier League',   prefix: 'epl',          lang: 'en' },
   { id: '4668', name: 'Saudi Pro League', prefix: 'spl',          lang: 'ar' },
   { id: '4849', name: 'Women\'s Super League', prefix: 'wsl',     lang: 'en' },
-  { id: '4341', name: 'Liga MX',             prefix: 'ligamx',   lang: 'es' },
+  { id: '4350', name: 'Liga MX',             prefix: 'ligamx',   lang: 'es' },
   // Motorsport
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
   // UEFA Club Competitions
