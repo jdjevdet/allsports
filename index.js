@@ -27,6 +27,8 @@ const LEAGUES = [
   { id: '4480', name: 'UEFA Champions League',  prefix: 'ucl',  lang: 'en' },
   { id: '4481', name: 'UEFA Europa League',     prefix: 'uel',  lang: 'en' },
   { id: '5071', name: 'UEFA Conference League', prefix: 'uecl', lang: 'en' },
+  { id: '4721', name: 'CONCACAF Champions Cup',  prefix: 'concacafcc', lang: 'en' },
+  { id: '4501', name: 'Copa Libertadores',        prefix: 'libertadores', lang: 'es' },
   // Women's Football
   { id: '4889', name: 'UEFA Women\'s Champions League', prefix: 'uwcl',  lang: 'en' },
   { id: '4865', name: 'UEFA Women\'s Euro',             prefix: 'weuro', lang: 'en' },
