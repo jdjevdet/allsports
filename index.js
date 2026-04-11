@@ -23,6 +23,11 @@ const LEAGUES = [
   { id: '4350', name: 'Liga MX',             prefix: 'ligamx',   lang: 'es' },
   // Motorsport
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
+  // Combat Sports & Wrestling
+  { id: '4445', name: 'Boxing',           prefix: 'boxing',       lang: 'en' },
+  { id: '4443', name: 'UFC',              prefix: 'ufc',          lang: 'en' },
+  { id: '4444', name: 'WWE',              prefix: 'wwe',          lang: 'en' },
+  { id: '4563', name: 'AEW',              prefix: 'aew',          lang: 'en' },
   // UEFA Club Competitions
   { id: '4480', name: 'UEFA Champions League',  prefix: 'ucl',  lang: 'en' },
   { id: '4481', name: 'UEFA Europa League',     prefix: 'uel',  lang: 'en' },
@@ -134,11 +139,13 @@ async function generateEPG() {
     }
 
     for (const event of events) {
-      if (!event.strHomeTeam || !event.strAwayTeam) continue;
+      const hasTeams = event.strHomeTeam && event.strAwayTeam;
+      if (!hasTeams && !event.strEvent) continue;
 
       const isLive     = liveIds.has(event.idEvent);
       const channelId  = `${league.prefix}-match-${event.idEvent}`;
-      const matchTitle = escapeXML(`${event.strHomeTeam} vs ${event.strAwayTeam}`);
+      const rawTitle   = hasTeams ? `${event.strHomeTeam} vs ${event.strAwayTeam}` : event.strEvent;
+      const matchTitle = escapeXML(rawTitle);
       const liveTag    = isLive ? ' 🔴 LIVE' : '';
 
       // Channel block
