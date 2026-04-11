@@ -882,6 +882,86 @@
     <display-name lang="en">Barcelona-Catalunya Grand Prix</display-name>
     <display-name lang="en">Formula 1: Barcelona-Catalunya Grand Prix</display-name>
   </channel>
+  <channel id="nhl-match-2348143">
+    <display-name lang="en">Boston Bruins vs Tampa Bay Lightning</display-name>
+    <display-name lang="en">NHL: Boston Bruins vs Tampa Bay Lightning</display-name>
+  </channel>
+  <channel id="nhl-match-2348144">
+    <display-name lang="en">New York Islanders vs Ottawa Senators</display-name>
+    <display-name lang="en">NHL: New York Islanders vs Ottawa Senators</display-name>
+  </channel>
+  <channel id="nhl-match-2348145">
+    <display-name lang="en">Pittsburgh Penguins vs Washington Capitals</display-name>
+    <display-name lang="en">NHL: Pittsburgh Penguins vs Washington Capitals</display-name>
+  </channel>
+  <channel id="nhl-match-2348146">
+    <display-name lang="en">Los Angeles Kings vs Edmonton Oilers</display-name>
+    <display-name lang="en">NHL: Los Angeles Kings vs Edmonton Oilers</display-name>
+  </channel>
+  <channel id="nhl-match-2348147">
+    <display-name lang="en">Chicago Blackhawks vs St. Louis Blues</display-name>
+    <display-name lang="en">NHL: Chicago Blackhawks vs St. Louis Blues</display-name>
+  </channel>
+  <channel id="nhl-match-2348148">
+    <display-name lang="en">Dallas Stars vs New York Rangers</display-name>
+    <display-name lang="en">NHL: Dallas Stars vs New York Rangers</display-name>
+  </channel>
+  <channel id="nhl-match-2348149">
+    <display-name lang="en">Detroit Red Wings vs New Jersey Devils</display-name>
+    <display-name lang="en">NHL: Detroit Red Wings vs New Jersey Devils</display-name>
+  </channel>
+  <channel id="nhl-match-2348150">
+    <display-name lang="en">Nashville Predators vs Minnesota Wild</display-name>
+    <display-name lang="en">NHL: Nashville Predators vs Minnesota Wild</display-name>
+  </channel>
+  <channel id="nhl-match-2348151">
+    <display-name lang="en">Utah Mammoth vs Carolina Hurricanes</display-name>
+    <display-name lang="en">NHL: Utah Mammoth vs Carolina Hurricanes</display-name>
+  </channel>
+  <channel id="nhl-match-2348152">
+    <display-name lang="en">Winnipeg Jets vs Philadelphia Flyers</display-name>
+    <display-name lang="en">NHL: Winnipeg Jets vs Philadelphia Flyers</display-name>
+  </channel>
+  <channel id="nhl-match-2348153">
+    <display-name lang="en">Toronto Maple Leafs vs Florida Panthers</display-name>
+    <display-name lang="en">NHL: Toronto Maple Leafs vs Florida Panthers</display-name>
+  </channel>
+  <channel id="nhl-match-2348154">
+    <display-name lang="en">Seattle Kraken vs Calgary Flames</display-name>
+    <display-name lang="en">NHL: Seattle Kraken vs Calgary Flames</display-name>
+  </channel>
+  <channel id="nhl-match-2348155">
+    <display-name lang="en">Montreal Canadiens vs Columbus Blue Jackets</display-name>
+    <display-name lang="en">NHL: Montreal Canadiens vs Columbus Blue Jackets</display-name>
+  </channel>
+  <channel id="nhl-match-2348156">
+    <display-name lang="en">Colorado Avalanche vs Vegas Golden Knights</display-name>
+    <display-name lang="en">NHL: Colorado Avalanche vs Vegas Golden Knights</display-name>
+  </channel>
+  <channel id="nhl-match-2348157">
+    <display-name lang="en">San Jose Sharks vs Vancouver Canucks</display-name>
+    <display-name lang="en">NHL: San Jose Sharks vs Vancouver Canucks</display-name>
+  </channel>
+  <channel id="nhl-match-2348158">
+    <display-name lang="en">Washington Capitals vs Pittsburgh Penguins</display-name>
+    <display-name lang="en">NHL: Washington Capitals vs Pittsburgh Penguins</display-name>
+  </channel>
+  <channel id="nhl-match-2348159">
+    <display-name lang="en">Columbus Blue Jackets vs Boston Bruins</display-name>
+    <display-name lang="en">NHL: Columbus Blue Jackets vs Boston Bruins</display-name>
+  </channel>
+  <channel id="nhl-match-2348160">
+    <display-name lang="en">New York Islanders vs Montreal Canadiens</display-name>
+    <display-name lang="en">NHL: New York Islanders vs Montreal Canadiens</display-name>
+  </channel>
+  <channel id="nhl-match-2348161">
+    <display-name lang="en">New Jersey Devils vs Ottawa Senators</display-name>
+    <display-name lang="en">NHL: New Jersey Devils vs Ottawa Senators</display-name>
+  </channel>
+  <channel id="nhl-match-2348162">
+    <display-name lang="en">Anaheim Ducks vs Vancouver Canucks</display-name>
+    <display-name lang="en">NHL: Anaheim Ducks vs Vancouver Canucks</display-name>
+  </channel>
   <channel id="boxing-match-2436331">
     <display-name lang="en">Tyson Fury vs Arslanbek Makhmudov</display-name>
     <display-name lang="en">Boxing: Tyson Fury vs Arslanbek Makhmudov</display-name>
@@ -1931,8 +2011,8 @@
   </programme>
 
   <programme start="20260411170000 +0000" stop="20260411190000 +0000" channel="ligue1-match-2278361">
-    <title lang="fr">Auxerre vs Nantes</title>
-    <desc lang="fr">Ligue 1 - Auxerre vs Nantes | 2026-04-11</desc>
+    <title lang="fr">Auxerre vs Nantes 🔴 LIVE</title>
+    <desc lang="fr">🔴 LIVE - Ligue 1 - Auxerre vs Nantes | 2026-04-11</desc>
     <category lang="en">Ligue 1</category>
     <icon src="https://r2.thesportsdb.com/images/media/event/thumb/j16lju1754808863.jpg" />
   </programme>
@@ -3212,8 +3292,8 @@
   </programme>
 
   <programme start="20260411170000 +0000" stop="20260411190000 +0000" channel="mls-match-2406798">
-    <title lang="en">Toronto FC vs FC Cincinnati</title>
-    <desc lang="en">MLS - Toronto FC vs FC Cincinnati | 2026-04-11</desc>
+    <title lang="en">Toronto FC vs FC Cincinnati 🔴 LIVE</title>
+    <desc lang="en">🔴 LIVE - MLS - Toronto FC vs FC Cincinnati | 2026-04-11</desc>
     <category lang="en">MLS</category>
     <icon src="https://r2.thesportsdb.com/images/media/event/thumb/p5mxz71706713223.jpg" />
   </programme>
@@ -3653,8 +3733,8 @@
   </programme>
 
   <programme start="20260411170000 +0000" stop="20260411190000 +0000" channel="primeiraliga-match-2283588">
-    <title lang="pt">Santa Clara vs Rio Ave</title>
-    <desc lang="pt">Primeira Liga - Santa Clara vs Rio Ave | 2026-04-11</desc>
+    <title lang="pt">Santa Clara vs Rio Ave 🔴 LIVE</title>
+    <desc lang="pt">🔴 LIVE - Primeira Liga - Santa Clara vs Rio Ave | 2026-04-11</desc>
     <category lang="en">Primeira Liga</category>
     <icon src="https://r2.thesportsdb.com/images/media/event/thumb/2irwf11770996490.jpg" />
   </programme>
@@ -6121,6 +6201,426 @@
     <desc lang="en">The match has ended. Formula 1 - Barcelona-Catalunya Grand Prix | 2026-06-14</desc>
     <category lang="en">Formula 1</category>
     <icon src="https://www.thesportsdb.com/images/media/event/thumb/z95co71774920190.jpg" />
+  </programme>
+
+  <programme start="20260411043000 +0000" stop="20260411163000 +0000" channel="nhl-match-2348143">
+    <title lang="en">Next Game: Boston Bruins vs. Tampa Bay Lightning</title>
+    <desc lang="en">Next Game: Bruins vs. Lightning on April 11, 2026 at 11:30AM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ihfoxk1760901667.jpg" />
+  </programme>
+
+  <programme start="20260411163000 +0000" stop="20260411183000 +0000" channel="nhl-match-2348143">
+    <title lang="en">NHL Hockey: Boston Bruins vs. Tampa Bay Lightning 🔴 LIVE</title>
+    <desc lang="en">🔴 LIVE - NHL Hockey: Boston Bruins vs. Tampa Bay Lightning</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ihfoxk1760901667.jpg" />
+  </programme>
+
+  <programme start="20260411183000 +0000" stop="20260412063000 +0000" channel="nhl-match-2348143">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Boston Bruins vs. Tampa Bay Lightning — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ihfoxk1760901667.jpg" />
+  </programme>
+
+  <programme start="20260411050000 +0000" stop="20260411170000 +0000" channel="nhl-match-2348144">
+    <title lang="en">Next Game: New York Islanders vs. Ottawa Senators</title>
+    <desc lang="en">Next Game: Islanders vs. Senators on April 11, 2026 at 12:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ga39711760901669.jpg" />
+  </programme>
+
+  <programme start="20260411170000 +0000" stop="20260411190000 +0000" channel="nhl-match-2348144">
+    <title lang="en">NHL Hockey: New York Islanders vs. Ottawa Senators 🔴 LIVE</title>
+    <desc lang="en">🔴 LIVE - NHL Hockey: New York Islanders vs. Ottawa Senators</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ga39711760901669.jpg" />
+  </programme>
+
+  <programme start="20260411190000 +0000" stop="20260412070000 +0000" channel="nhl-match-2348144">
+    <title lang="en">Event Over</title>
+    <desc lang="en">New York Islanders vs. Ottawa Senators — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ga39711760901669.jpg" />
+  </programme>
+
+  <programme start="20260411070000 +0000" stop="20260411190000 +0000" channel="nhl-match-2348145">
+    <title lang="en">Next Game: Pittsburgh Penguins vs. Washington Capitals</title>
+    <desc lang="en">Next Game: Penguins vs. Capitals on April 11, 2026 at 2:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/fookg31760901671.jpg" />
+  </programme>
+
+  <programme start="20260411190000 +0000" stop="20260411210000 +0000" channel="nhl-match-2348145">
+    <title lang="en">NHL Hockey: Pittsburgh Penguins vs. Washington Capitals</title>
+    <desc lang="en">NHL Hockey: Pittsburgh Penguins vs. Washington Capitals</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/fookg31760901671.jpg" />
+  </programme>
+
+  <programme start="20260411210000 +0000" stop="20260412090000 +0000" channel="nhl-match-2348145">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Pittsburgh Penguins vs. Washington Capitals — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/fookg31760901671.jpg" />
+  </programme>
+
+  <programme start="20260411080000 +0000" stop="20260411200000 +0000" channel="nhl-match-2348146">
+    <title lang="en">Next Game: Los Angeles Kings vs. Edmonton Oilers</title>
+    <desc lang="en">Next Game: Kings vs. Oilers on April 11, 2026 at 3:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/hgscx21760901674.jpg" />
+  </programme>
+
+  <programme start="20260411200000 +0000" stop="20260411220000 +0000" channel="nhl-match-2348146">
+    <title lang="en">NHL Hockey: Los Angeles Kings vs. Edmonton Oilers</title>
+    <desc lang="en">NHL Hockey: Los Angeles Kings vs. Edmonton Oilers</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/hgscx21760901674.jpg" />
+  </programme>
+
+  <programme start="20260411220000 +0000" stop="20260412100000 +0000" channel="nhl-match-2348146">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Los Angeles Kings vs. Edmonton Oilers — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/hgscx21760901674.jpg" />
+  </programme>
+
+  <programme start="20260411090000 +0000" stop="20260411210000 +0000" channel="nhl-match-2348147">
+    <title lang="en">Next Game: Chicago Blackhawks vs. St. Louis Blues</title>
+    <desc lang="en">Next Game: Blackhawks vs. Blues on April 11, 2026 at 4:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/9z0kpo1760901676.jpg" />
+  </programme>
+
+  <programme start="20260411210000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348147">
+    <title lang="en">NHL Hockey: Chicago Blackhawks vs. St. Louis Blues</title>
+    <desc lang="en">NHL Hockey: Chicago Blackhawks vs. St. Louis Blues</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/9z0kpo1760901676.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412110000 +0000" channel="nhl-match-2348147">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Chicago Blackhawks vs. St. Louis Blues — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/9z0kpo1760901676.jpg" />
+  </programme>
+
+  <programme start="20260411090000 +0000" stop="20260411210000 +0000" channel="nhl-match-2348148">
+    <title lang="en">Next Game: Dallas Stars vs. New York Rangers</title>
+    <desc lang="en">Next Game: Stars vs. Rangers on April 11, 2026 at 4:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/jr9jfy1760901678.jpg" />
+  </programme>
+
+  <programme start="20260411210000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348148">
+    <title lang="en">NHL Hockey: Dallas Stars vs. New York Rangers</title>
+    <desc lang="en">NHL Hockey: Dallas Stars vs. New York Rangers</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/jr9jfy1760901678.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412110000 +0000" channel="nhl-match-2348148">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Dallas Stars vs. New York Rangers — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/jr9jfy1760901678.jpg" />
+  </programme>
+
+  <programme start="20260411090000 +0000" stop="20260411210000 +0000" channel="nhl-match-2348149">
+    <title lang="en">Next Game: Detroit Red Wings vs. New Jersey Devils</title>
+    <desc lang="en">Next Game: Red Wings vs. Devils on April 11, 2026 at 4:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/p9t0fz1760901680.jpg" />
+  </programme>
+
+  <programme start="20260411210000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348149">
+    <title lang="en">NHL Hockey: Detroit Red Wings vs. New Jersey Devils</title>
+    <desc lang="en">NHL Hockey: Detroit Red Wings vs. New Jersey Devils</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/p9t0fz1760901680.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412110000 +0000" channel="nhl-match-2348149">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Detroit Red Wings vs. New Jersey Devils — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/p9t0fz1760901680.jpg" />
+  </programme>
+
+  <programme start="20260411090000 +0000" stop="20260411210000 +0000" channel="nhl-match-2348150">
+    <title lang="en">Next Game: Nashville Predators vs. Minnesota Wild</title>
+    <desc lang="en">Next Game: Predators vs. Wild on April 11, 2026 at 4:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/50rwyp1760901683.jpg" />
+  </programme>
+
+  <programme start="20260411210000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348150">
+    <title lang="en">NHL Hockey: Nashville Predators vs. Minnesota Wild</title>
+    <desc lang="en">NHL Hockey: Nashville Predators vs. Minnesota Wild</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/50rwyp1760901683.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412110000 +0000" channel="nhl-match-2348150">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Nashville Predators vs. Minnesota Wild — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/50rwyp1760901683.jpg" />
+  </programme>
+
+  <programme start="20260411090000 +0000" stop="20260411210000 +0000" channel="nhl-match-2348151">
+    <title lang="en">Next Game: Utah Mammoth vs. Carolina Hurricanes</title>
+    <desc lang="en">Next Game: Mammoth vs. Hurricanes on April 11, 2026 at 4:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/6bnvmh1760901685.jpg" />
+  </programme>
+
+  <programme start="20260411210000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348151">
+    <title lang="en">NHL Hockey: Utah Mammoth vs. Carolina Hurricanes</title>
+    <desc lang="en">NHL Hockey: Utah Mammoth vs. Carolina Hurricanes</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/6bnvmh1760901685.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412110000 +0000" channel="nhl-match-2348151">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Utah Mammoth vs. Carolina Hurricanes — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/6bnvmh1760901685.jpg" />
+  </programme>
+
+  <programme start="20260411110000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348152">
+    <title lang="en">Next Game: Winnipeg Jets vs. Philadelphia Flyers</title>
+    <desc lang="en">Next Game: Jets vs. Flyers on April 11, 2026 at 6:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/cudu6g1760901687.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412010000 +0000" channel="nhl-match-2348152">
+    <title lang="en">NHL Hockey: Winnipeg Jets vs. Philadelphia Flyers</title>
+    <desc lang="en">NHL Hockey: Winnipeg Jets vs. Philadelphia Flyers</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/cudu6g1760901687.jpg" />
+  </programme>
+
+  <programme start="20260412010000 +0000" stop="20260412130000 +0000" channel="nhl-match-2348152">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Winnipeg Jets vs. Philadelphia Flyers — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/cudu6g1760901687.jpg" />
+  </programme>
+
+  <programme start="20260411110000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348153">
+    <title lang="en">Next Game: Toronto Maple Leafs vs. Florida Panthers</title>
+    <desc lang="en">Next Game: Maple Leafs vs. Panthers on April 11, 2026 at 6:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/l539i11760901690.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412010000 +0000" channel="nhl-match-2348153">
+    <title lang="en">NHL Hockey: Toronto Maple Leafs vs. Florida Panthers</title>
+    <desc lang="en">NHL Hockey: Toronto Maple Leafs vs. Florida Panthers</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/l539i11760901690.jpg" />
+  </programme>
+
+  <programme start="20260412010000 +0000" stop="20260412130000 +0000" channel="nhl-match-2348153">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Toronto Maple Leafs vs. Florida Panthers — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/l539i11760901690.jpg" />
+  </programme>
+
+  <programme start="20260411110000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348154">
+    <title lang="en">Next Game: Seattle Kraken vs. Calgary Flames</title>
+    <desc lang="en">Next Game: Kraken vs. Flames on April 11, 2026 at 6:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/e8br8r1760901692.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412010000 +0000" channel="nhl-match-2348154">
+    <title lang="en">NHL Hockey: Seattle Kraken vs. Calgary Flames</title>
+    <desc lang="en">NHL Hockey: Seattle Kraken vs. Calgary Flames</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/e8br8r1760901692.jpg" />
+  </programme>
+
+  <programme start="20260412010000 +0000" stop="20260412130000 +0000" channel="nhl-match-2348154">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Seattle Kraken vs. Calgary Flames — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/e8br8r1760901692.jpg" />
+  </programme>
+
+  <programme start="20260411110000 +0000" stop="20260411230000 +0000" channel="nhl-match-2348155">
+    <title lang="en">Next Game: Montreal Canadiens vs. Columbus Blue Jackets</title>
+    <desc lang="en">Next Game: Canadiens vs. Blue Jackets on April 11, 2026 at 6:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/kctbaf1760901694.jpg" />
+  </programme>
+
+  <programme start="20260411230000 +0000" stop="20260412010000 +0000" channel="nhl-match-2348155">
+    <title lang="en">NHL Hockey: Montreal Canadiens vs. Columbus Blue Jackets</title>
+    <desc lang="en">NHL Hockey: Montreal Canadiens vs. Columbus Blue Jackets</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/kctbaf1760901694.jpg" />
+  </programme>
+
+  <programme start="20260412010000 +0000" stop="20260412130000 +0000" channel="nhl-match-2348155">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Montreal Canadiens vs. Columbus Blue Jackets — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/kctbaf1760901694.jpg" />
+  </programme>
+
+  <programme start="20260411120000 +0000" stop="20260412000000 +0000" channel="nhl-match-2348156">
+    <title lang="en">Next Game: Colorado Avalanche vs. Vegas Golden Knights</title>
+    <desc lang="en">Next Game: Avalanche vs. Golden Knights on April 11, 2026 at 7:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/d9kfjb1760901696.jpg" />
+  </programme>
+
+  <programme start="20260412000000 +0000" stop="20260412020000 +0000" channel="nhl-match-2348156">
+    <title lang="en">NHL Hockey: Colorado Avalanche vs. Vegas Golden Knights</title>
+    <desc lang="en">NHL Hockey: Colorado Avalanche vs. Vegas Golden Knights</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/d9kfjb1760901696.jpg" />
+  </programme>
+
+  <programme start="20260412020000 +0000" stop="20260412140000 +0000" channel="nhl-match-2348156">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Colorado Avalanche vs. Vegas Golden Knights — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/d9kfjb1760901696.jpg" />
+  </programme>
+
+  <programme start="20260411140000 +0000" stop="20260412020000 +0000" channel="nhl-match-2348157">
+    <title lang="en">Next Game: San Jose Sharks vs. Vancouver Canucks</title>
+    <desc lang="en">Next Game: Sharks vs. Canucks on April 11, 2026 at 9:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/q3um3a1760901699.jpg" />
+  </programme>
+
+  <programme start="20260412020000 +0000" stop="20260412040000 +0000" channel="nhl-match-2348157">
+    <title lang="en">NHL Hockey: San Jose Sharks vs. Vancouver Canucks</title>
+    <desc lang="en">NHL Hockey: San Jose Sharks vs. Vancouver Canucks</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/q3um3a1760901699.jpg" />
+  </programme>
+
+  <programme start="20260412040000 +0000" stop="20260412160000 +0000" channel="nhl-match-2348157">
+    <title lang="en">Event Over</title>
+    <desc lang="en">San Jose Sharks vs. Vancouver Canucks — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/q3um3a1760901699.jpg" />
+  </programme>
+
+  <programme start="20260412070000 +0000" stop="20260412190000 +0000" channel="nhl-match-2348158">
+    <title lang="en">Next Game: Washington Capitals vs. Pittsburgh Penguins</title>
+    <desc lang="en">Next Game: Capitals vs. Penguins on April 12, 2026 at 2:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/i3a4jd1760901701.jpg" />
+  </programme>
+
+  <programme start="20260412190000 +0000" stop="20260412210000 +0000" channel="nhl-match-2348158">
+    <title lang="en">NHL Hockey: Washington Capitals vs. Pittsburgh Penguins</title>
+    <desc lang="en">NHL Hockey: Washington Capitals vs. Pittsburgh Penguins</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/i3a4jd1760901701.jpg" />
+  </programme>
+
+  <programme start="20260412210000 +0000" stop="20260413090000 +0000" channel="nhl-match-2348158">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Washington Capitals vs. Pittsburgh Penguins — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/i3a4jd1760901701.jpg" />
+  </programme>
+
+  <programme start="20260412100000 +0000" stop="20260412220000 +0000" channel="nhl-match-2348159">
+    <title lang="en">Next Game: Columbus Blue Jackets vs. Boston Bruins</title>
+    <desc lang="en">Next Game: Blue Jackets vs. Bruins on April 12, 2026 at 5:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/yqqxd21760901703.jpg" />
+  </programme>
+
+  <programme start="20260412220000 +0000" stop="20260413000000 +0000" channel="nhl-match-2348159">
+    <title lang="en">NHL Hockey: Columbus Blue Jackets vs. Boston Bruins</title>
+    <desc lang="en">NHL Hockey: Columbus Blue Jackets vs. Boston Bruins</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/yqqxd21760901703.jpg" />
+  </programme>
+
+  <programme start="20260413000000 +0000" stop="20260413120000 +0000" channel="nhl-match-2348159">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Columbus Blue Jackets vs. Boston Bruins — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/yqqxd21760901703.jpg" />
+  </programme>
+
+  <programme start="20260412100000 +0000" stop="20260412220000 +0000" channel="nhl-match-2348160">
+    <title lang="en">Next Game: New York Islanders vs. Montreal Canadiens</title>
+    <desc lang="en">Next Game: Islanders vs. Canadiens on April 12, 2026 at 5:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/rxvd6q1760901705.jpg" />
+  </programme>
+
+  <programme start="20260412220000 +0000" stop="20260413000000 +0000" channel="nhl-match-2348160">
+    <title lang="en">NHL Hockey: New York Islanders vs. Montreal Canadiens</title>
+    <desc lang="en">NHL Hockey: New York Islanders vs. Montreal Canadiens</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/rxvd6q1760901705.jpg" />
+  </programme>
+
+  <programme start="20260413000000 +0000" stop="20260413120000 +0000" channel="nhl-match-2348160">
+    <title lang="en">Event Over</title>
+    <desc lang="en">New York Islanders vs. Montreal Canadiens — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/rxvd6q1760901705.jpg" />
+  </programme>
+
+  <programme start="20260412110000 +0000" stop="20260412230000 +0000" channel="nhl-match-2348161">
+    <title lang="en">Next Game: New Jersey Devils vs. Ottawa Senators</title>
+    <desc lang="en">Next Game: Devils vs. Senators on April 12, 2026 at 6:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/5uuwbn1760901708.jpg" />
+  </programme>
+
+  <programme start="20260412230000 +0000" stop="20260413010000 +0000" channel="nhl-match-2348161">
+    <title lang="en">NHL Hockey: New Jersey Devils vs. Ottawa Senators</title>
+    <desc lang="en">NHL Hockey: New Jersey Devils vs. Ottawa Senators</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/5uuwbn1760901708.jpg" />
+  </programme>
+
+  <programme start="20260413010000 +0000" stop="20260413130000 +0000" channel="nhl-match-2348161">
+    <title lang="en">Event Over</title>
+    <desc lang="en">New Jersey Devils vs. Ottawa Senators — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/5uuwbn1760901708.jpg" />
+  </programme>
+
+  <programme start="20260412120000 +0000" stop="20260413000000 +0000" channel="nhl-match-2348162">
+    <title lang="en">Next Game: Anaheim Ducks vs. Vancouver Canucks</title>
+    <desc lang="en">Next Game: Ducks vs. Canucks on April 12, 2026 at 7:00PM EST</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ye1zlt1760901710.jpg" />
+  </programme>
+
+  <programme start="20260413000000 +0000" stop="20260413020000 +0000" channel="nhl-match-2348162">
+    <title lang="en">NHL Hockey: Anaheim Ducks vs. Vancouver Canucks</title>
+    <desc lang="en">NHL Hockey: Anaheim Ducks vs. Vancouver Canucks</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ye1zlt1760901710.jpg" />
+  </programme>
+
+  <programme start="20260413020000 +0000" stop="20260413140000 +0000" channel="nhl-match-2348162">
+    <title lang="en">Event Over</title>
+    <desc lang="en">Anaheim Ducks vs. Vancouver Canucks — game ended.</desc>
+    <category lang="en">NHL</category>
+    <icon src="https://r2.thesportsdb.com/images/media/event/thumb/ye1zlt1760901710.jpg" />
   </programme>
 
   <programme start="20260411040000 +0000" stop="20260411160000 +0000" channel="boxing-match-2436331">

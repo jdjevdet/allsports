@@ -23,6 +23,8 @@ const LEAGUES = [
   { id: '4350', name: 'Liga MX',             prefix: 'ligamx',   lang: 'es' },
   // Motorsport
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
+  // Ice Hockey
+  { id: '4380', name: 'NHL',              prefix: 'nhl',          lang: 'en', duration: 120 },
   // Combat Sports & Wrestling
   { id: '4445', name: 'Boxing',           prefix: 'boxing',       lang: 'en', duration: 300 },
   { id: '4443', name: 'UFC',              prefix: 'ufc',          lang: 'en', duration: 180, fixedStartHourEST: 21 },
@@ -131,6 +133,61 @@ function fixedESTStart(dateEvent, strTime, hourEST) {
   ));
 }
 
+// --- 3d. NHL SHORT NAMES + DATE FORMATTING ---
+const NHL_SHORT_NAMES = {
+  'Anaheim Ducks': 'Ducks',
+  'Boston Bruins': 'Bruins',
+  'Buffalo Sabres': 'Sabres',
+  'Calgary Flames': 'Flames',
+  'Carolina Hurricanes': 'Hurricanes',
+  'Chicago Blackhawks': 'Blackhawks',
+  'Colorado Avalanche': 'Avalanche',
+  'Columbus Blue Jackets': 'Blue Jackets',
+  'Dallas Stars': 'Stars',
+  'Detroit Red Wings': 'Red Wings',
+  'Edmonton Oilers': 'Oilers',
+  'Florida Panthers': 'Panthers',
+  'Los Angeles Kings': 'Kings',
+  'Minnesota Wild': 'Wild',
+  'Montreal Canadiens': 'Canadiens',
+  'Nashville Predators': 'Predators',
+  'New Jersey Devils': 'Devils',
+  'New York Islanders': 'Islanders',
+  'New York Rangers': 'Rangers',
+  'Ottawa Senators': 'Senators',
+  'Philadelphia Flyers': 'Flyers',
+  'Pittsburgh Penguins': 'Penguins',
+  'San Jose Sharks': 'Sharks',
+  'Seattle Kraken': 'Kraken',
+  'St. Louis Blues': 'Blues',
+  'Tampa Bay Lightning': 'Lightning',
+  'Toronto Maple Leafs': 'Maple Leafs',
+  'Utah Hockey Club': 'Utah',
+  'Utah Mammoth': 'Mammoth',
+  'Vancouver Canucks': 'Canucks',
+  'Vegas Golden Knights': 'Golden Knights',
+  'Washington Capitals': 'Capitals',
+  'Winnipeg Jets': 'Jets',
+};
+
+function nhlShort(fullName) {
+  if (!fullName) return '';
+  return NHL_SHORT_NAMES[fullName] || fullName.split(' ').slice(-1)[0];
+}
+
+function formatNHLDateEST(dateEvent, strTime) {
+  const [y, m, d]  = dateEvent.split('-').map(Number);
+  const [h, mi]    = (strTime || '00:00:00').split(':').map(Number);
+  const est = new Date(Date.UTC(y, m - 1, d, h, mi) - 5 * 3600 * 1000);
+  const months = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+  let hr12 = est.getUTCHours() % 12;
+  if (hr12 === 0) hr12 = 12;
+  const ampm = est.getUTCHours() >= 12 ? 'PM' : 'AM';
+  const mins = String(est.getUTCMinutes()).padStart(2, '0');
+  return `${months[est.getUTCMonth()]} ${est.getUTCDate()}, ${est.getUTCFullYear()} at ${hr12}:${mins}${ampm} EST`;
+}
+
 // --- 4. SANITIZE TEXT FOR XML ---
 function escapeXML(str) {
   return str
@@ -198,6 +255,45 @@ async function generateEPG() {
       const preStart   = shiftMinutes(matchStart, -720);
       const postEnd    = shiftMinutes(matchEnd, 720);
       const thumb      = event.strThumb || '';
+
+      // NHL: custom title/description format
+      if (league.id === '4380' && hasTeams) {
+        const homeShort = nhlShort(event.strHomeTeam);
+        const awayShort = nhlShort(event.strAwayTeam);
+        const fullMatch  = escapeXML(`${event.strHomeTeam} vs. ${event.strAwayTeam}`);
+        const shortMatch = escapeXML(`${homeShort} vs. ${awayShort}`);
+        const dateStr    = formatNHLDateEST(event.dateEvent, event.strTime);
+        const liveDesc   = event.strDescriptionEN
+          ? escapeXML(event.strDescriptionEN)
+          : `NHL Hockey: ${fullMatch}`;
+
+        // Block 1: Next Game
+        allProgrammes += `  <programme start="${preStart}" stop="${matchStart}" channel="${channelId}">\n`;
+        allProgrammes += `    <title lang="en">Next Game: ${fullMatch}</title>\n`;
+        allProgrammes += `    <desc lang="en">Next Game: ${shortMatch} on ${dateStr}</desc>\n`;
+        allProgrammes += `    <category lang="en">NHL</category>\n`;
+        if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
+        allProgrammes += `  </programme>\n\n`;
+
+        // Block 2: Live Game
+        allProgrammes += `  <programme start="${matchStart}" stop="${matchEnd}" channel="${channelId}">\n`;
+        allProgrammes += `    <title lang="en">NHL Hockey: ${fullMatch}${liveTag}</title>\n`;
+        allProgrammes += `    <desc lang="en">${isLive ? '🔴 LIVE - ' : ''}${liveDesc}</desc>\n`;
+        allProgrammes += `    <category lang="en">NHL</category>\n`;
+        if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
+        allProgrammes += `  </programme>\n\n`;
+
+        // Block 3: Event Over
+        allProgrammes += `  <programme start="${matchEnd}" stop="${postEnd}" channel="${channelId}">\n`;
+        allProgrammes += `    <title lang="en">Event Over</title>\n`;
+        allProgrammes += `    <desc lang="en">${fullMatch} — game ended.</desc>\n`;
+        allProgrammes += `    <category lang="en">NHL</category>\n`;
+        if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
+        allProgrammes += `  </programme>\n\n`;
+
+        totalMatches++;
+        continue;
+      }
 
       // Block 1: Next Match
       allProgrammes += `  <programme start="${preStart}" stop="${matchStart}" channel="${channelId}">\n`;
