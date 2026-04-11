@@ -25,7 +25,7 @@ const LEAGUES = [
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
   // Combat Sports & Wrestling
   { id: '4445', name: 'Boxing',           prefix: 'boxing',       lang: 'en', duration: 300 },
-  { id: '4443', name: 'UFC',              prefix: 'ufc',          lang: 'en', duration: 300 },
+  { id: '4443', name: 'UFC',              prefix: 'ufc',          lang: 'en', duration: 180, fixedStartHourEST: 21 },
   { id: '4444', name: 'WWE',              prefix: 'wwe',          lang: 'en', duration: 180 },
   { id: '4563', name: 'AEW',              prefix: 'aew',          lang: 'en', duration: 180 },
   // UEFA Club Competitions
@@ -99,6 +99,38 @@ function shiftMinutes(xmltvDate, mins) {
   );
 }
 
+// --- 3b. FORMAT A Date AS XMLTV ---
+function dateToXMLTV(dt) {
+  const pad = (n) => String(n).padStart(2, '0');
+  return (
+    `${dt.getUTCFullYear()}` +
+    `${pad(dt.getUTCMonth() + 1)}` +
+    `${pad(dt.getUTCDate())}` +
+    `${pad(dt.getUTCHours())}` +
+    `${pad(dt.getUTCMinutes())}` +
+    `${pad(dt.getUTCSeconds())}` +
+    ` +0000`
+  );
+}
+
+// --- 3c. RESOLVE A FIXED "HOUR IN EST" ANCHORED TO THE EVENT'S US CALENDAR DATE ---
+// EST is UTC-5 year-round (no DST), so 9 PM EST = 02:00 UTC the following day.
+// The US calendar date is derived from the API's UTC timestamp shifted into EST,
+// which handles events where TheSportsDB lists the next UTC day (e.g. 00:00 UTC).
+function fixedESTStart(dateEvent, strTime, hourEST) {
+  const [y, m, d] = dateEvent.split('-').map(Number);
+  const [h, mi, s] = (strTime || '00:00:00').split(':').map(Number);
+  const apiUTC = Date.UTC(y, m - 1, d, h, mi, s);
+  const estMs  = apiUTC - 5 * 3600 * 1000;
+  const est    = new Date(estMs);
+  return new Date(Date.UTC(
+    est.getUTCFullYear(),
+    est.getUTCMonth(),
+    est.getUTCDate(),
+    hourEST + 5, 0, 0
+  ));
+}
+
 // --- 4. SANITIZE TEXT FOR XML ---
 function escapeXML(str) {
   return str
@@ -159,7 +191,9 @@ async function generateEPG() {
         continue;
       }
 
-      const matchStart = toXMLTVDate(event.dateEvent, event.strTime);
+      const matchStart = league.fixedStartHourEST != null
+        ? dateToXMLTV(fixedESTStart(event.dateEvent, event.strTime, league.fixedStartHourEST))
+        : toXMLTVDate(event.dateEvent, event.strTime);
       const matchEnd   = shiftMinutes(matchStart, league.duration || 120);
       const preStart   = shiftMinutes(matchStart, -720);
       const postEnd    = shiftMinutes(matchEnd, 720);
