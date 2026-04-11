@@ -290,6 +290,18 @@ function proShort(map, fullName) {
   return map[fullName] || fullName.split(' ').slice(-1)[0];
 }
 
+function formatEventDateShortEST(dateEvent, strTime) {
+  const [y, m, d]  = dateEvent.split('-').map(Number);
+  const [h, mi]    = (strTime || '00:00:00').split(':').map(Number);
+  const est = new Date(Date.UTC(y, m - 1, d, h, mi) - 5 * 3600 * 1000);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let hr12 = est.getUTCHours() % 12;
+  if (hr12 === 0) hr12 = 12;
+  const ampm = est.getUTCHours() >= 12 ? 'PM' : 'AM';
+  const mins = String(est.getUTCMinutes()).padStart(2, '0');
+  return `${months[est.getUTCMonth()]} ${est.getUTCDate()} ${hr12}:${mins}${ampm} EST`;
+}
+
 function formatEventDateLabelEST(dateEvent, strTime) {
   const [y, m, d]  = dateEvent.split('-').map(Number);
   const [h, mi]    = (strTime || '00:00:00').split(':').map(Number);
@@ -358,10 +370,19 @@ async function generateEPG(todayOnly = false) {
       const rawTitle   = hasTeams ? `${event.strHomeTeam} vs ${event.strAwayTeam}` : event.strEvent;
       const matchTitle = escapeXML(rawTitle);
 
+      // For pro leagues with back-to-back series (MLB series, doubleheaders, etc.),
+      // the same matchup can appear multiple times, producing duplicate display-names
+      // that IPTVEditor merges into a single entry with blank programme data for the
+      // "loser". Suffixing with the date+time makes every display-name globally unique.
+      const isProLeague = !!PRO_LEAGUE_FORMATS[league.id];
+      const nameSuffix  = isProLeague && event.dateEvent && event.strTime
+        ? ` - ${escapeXML(formatEventDateShortEST(event.dateEvent, event.strTime))}`
+        : '';
+
       // Channel block
       allChannels += `  <channel id="${channelId}">\n`;
-      allChannels += `    <display-name lang="${league.lang}">${matchTitle}</display-name>\n`;
-      allChannels += `    <display-name lang="en">${league.name}: ${matchTitle}</display-name>\n`;
+      allChannels += `    <display-name lang="${league.lang}">${matchTitle}${nameSuffix}</display-name>\n`;
+      allChannels += `    <display-name lang="en">${league.name}: ${matchTitle}${nameSuffix}</display-name>\n`;
       allChannels += `  </channel>\n`;
 
       if (!event.dateEvent || !event.strTime) {
