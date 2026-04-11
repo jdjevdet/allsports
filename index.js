@@ -23,8 +23,11 @@ const LEAGUES = [
   { id: '4350', name: 'Liga MX',             prefix: 'ligamx',   lang: 'es' },
   // Motorsport
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
-  // Ice Hockey
+  // North American Pro Leagues (custom Next Game / Live / Event Over format)
   { id: '4380', name: 'NHL',              prefix: 'nhl',          lang: 'en', duration: 120 },
+  { id: '4424', name: 'MLB',              prefix: 'mlb',          lang: 'en', duration: 180 },
+  { id: '4387', name: 'NBA',              prefix: 'nba',          lang: 'en', duration: 150 },
+  { id: '4391', name: 'NFL',              prefix: 'nfl',          lang: 'en', duration: 210 },
   // Combat Sports & Wrestling
   { id: '4445', name: 'Boxing',           prefix: 'boxing',       lang: 'en', duration: 300 },
   { id: '4443', name: 'UFC',              prefix: 'ufc',          lang: 'en', duration: 180, fixedStartHourEST: 21 },
@@ -133,7 +136,7 @@ function fixedESTStart(dateEvent, strTime, hourEST) {
   ));
 }
 
-// --- 3d. NHL SHORT NAMES + DATE FORMATTING ---
+// --- 3d. PRO LEAGUE SHORT NAMES + DATE FORMATTING ---
 const NHL_SHORT_NAMES = {
   'Anaheim Ducks': 'Ducks',
   'Boston Bruins': 'Bruins',
@@ -170,12 +173,124 @@ const NHL_SHORT_NAMES = {
   'Winnipeg Jets': 'Jets',
 };
 
-function nhlShort(fullName) {
+const MLB_SHORT_NAMES = {
+  'Arizona Diamondbacks': 'Diamondbacks',
+  'Athletics': 'Athletics',
+  'Atlanta Braves': 'Braves',
+  'Baltimore Orioles': 'Orioles',
+  'Boston Red Sox': 'Red Sox',
+  'Chicago Cubs': 'Cubs',
+  'Chicago White Sox': 'White Sox',
+  'Cincinnati Reds': 'Reds',
+  'Cleveland Guardians': 'Guardians',
+  'Colorado Rockies': 'Rockies',
+  'Detroit Tigers': 'Tigers',
+  'Houston Astros': 'Astros',
+  'Kansas City Royals': 'Royals',
+  'Los Angeles Angels': 'Angels',
+  'Los Angeles Dodgers': 'Dodgers',
+  'Miami Marlins': 'Marlins',
+  'Milwaukee Brewers': 'Brewers',
+  'Minnesota Twins': 'Twins',
+  'New York Mets': 'Mets',
+  'New York Yankees': 'Yankees',
+  'Oakland Athletics': 'Athletics',
+  'Philadelphia Phillies': 'Phillies',
+  'Pittsburgh Pirates': 'Pirates',
+  'Sacramento Athletics': 'Athletics',
+  'San Diego Padres': 'Padres',
+  'San Francisco Giants': 'Giants',
+  'Seattle Mariners': 'Mariners',
+  'St. Louis Cardinals': 'Cardinals',
+  'Tampa Bay Rays': 'Rays',
+  'Texas Rangers': 'Rangers',
+  'Toronto Blue Jays': 'Blue Jays',
+  'Washington Nationals': 'Nationals',
+};
+
+const NBA_SHORT_NAMES = {
+  'Atlanta Hawks': 'Hawks',
+  'Boston Celtics': 'Celtics',
+  'Brooklyn Nets': 'Nets',
+  'Charlotte Hornets': 'Hornets',
+  'Chicago Bulls': 'Bulls',
+  'Cleveland Cavaliers': 'Cavaliers',
+  'Dallas Mavericks': 'Mavericks',
+  'Denver Nuggets': 'Nuggets',
+  'Detroit Pistons': 'Pistons',
+  'Golden State Warriors': 'Warriors',
+  'Houston Rockets': 'Rockets',
+  'Indiana Pacers': 'Pacers',
+  'LA Clippers': 'Clippers',
+  'Los Angeles Clippers': 'Clippers',
+  'Los Angeles Lakers': 'Lakers',
+  'Memphis Grizzlies': 'Grizzlies',
+  'Miami Heat': 'Heat',
+  'Milwaukee Bucks': 'Bucks',
+  'Minnesota Timberwolves': 'Timberwolves',
+  'New Orleans Pelicans': 'Pelicans',
+  'New York Knicks': 'Knicks',
+  'Oklahoma City Thunder': 'Thunder',
+  'Orlando Magic': 'Magic',
+  'Philadelphia 76ers': '76ers',
+  'Phoenix Suns': 'Suns',
+  'Portland Trail Blazers': 'Trail Blazers',
+  'Sacramento Kings': 'Kings',
+  'San Antonio Spurs': 'Spurs',
+  'Toronto Raptors': 'Raptors',
+  'Utah Jazz': 'Jazz',
+  'Washington Wizards': 'Wizards',
+};
+
+const NFL_SHORT_NAMES = {
+  'Arizona Cardinals': 'Cardinals',
+  'Atlanta Falcons': 'Falcons',
+  'Baltimore Ravens': 'Ravens',
+  'Buffalo Bills': 'Bills',
+  'Carolina Panthers': 'Panthers',
+  'Chicago Bears': 'Bears',
+  'Cincinnati Bengals': 'Bengals',
+  'Cleveland Browns': 'Browns',
+  'Dallas Cowboys': 'Cowboys',
+  'Denver Broncos': 'Broncos',
+  'Detroit Lions': 'Lions',
+  'Green Bay Packers': 'Packers',
+  'Houston Texans': 'Texans',
+  'Indianapolis Colts': 'Colts',
+  'Jacksonville Jaguars': 'Jaguars',
+  'Kansas City Chiefs': 'Chiefs',
+  'Las Vegas Raiders': 'Raiders',
+  'Los Angeles Chargers': 'Chargers',
+  'Los Angeles Rams': 'Rams',
+  'Miami Dolphins': 'Dolphins',
+  'Minnesota Vikings': 'Vikings',
+  'New England Patriots': 'Patriots',
+  'New Orleans Saints': 'Saints',
+  'New York Giants': 'Giants',
+  'New York Jets': 'Jets',
+  'Philadelphia Eagles': 'Eagles',
+  'Pittsburgh Steelers': 'Steelers',
+  'San Francisco 49ers': '49ers',
+  'Seattle Seahawks': 'Seahawks',
+  'Tampa Bay Buccaneers': 'Buccaneers',
+  'Tennessee Titans': 'Titans',
+  'Washington Commanders': 'Commanders',
+};
+
+// League-ID → { display label for the live block, team short-name map }
+const PRO_LEAGUE_FORMATS = {
+  '4380': { sportLabel: 'NHL Hockey',     shortNames: NHL_SHORT_NAMES },
+  '4424': { sportLabel: 'MLB Baseball',   shortNames: MLB_SHORT_NAMES },
+  '4387': { sportLabel: 'NBA Basketball', shortNames: NBA_SHORT_NAMES },
+  '4391': { sportLabel: 'NFL Football',   shortNames: NFL_SHORT_NAMES },
+};
+
+function proShort(map, fullName) {
   if (!fullName) return '';
-  return NHL_SHORT_NAMES[fullName] || fullName.split(' ').slice(-1)[0];
+  return map[fullName] || fullName.split(' ').slice(-1)[0];
 }
 
-function formatNHLDateEST(dateEvent, strTime) {
+function formatEventDateLabelEST(dateEvent, strTime) {
   const [y, m, d]  = dateEvent.split('-').map(Number);
   const [h, mi]    = (strTime || '00:00:00').split(':').map(Number);
   const est = new Date(Date.UTC(y, m - 1, d, h, mi) - 5 * 3600 * 1000);
@@ -262,30 +377,31 @@ async function generateEPG(todayOnly = false) {
       const postEnd    = shiftMinutes(matchEnd, 720);
       const thumb      = event.strThumb || '';
 
-      // NHL: custom title/description format
-      if (league.id === '4380' && hasTeams) {
-        const homeShort = nhlShort(event.strHomeTeam);
-        const awayShort = nhlShort(event.strAwayTeam);
+      // Pro-league (NHL / MLB / NBA / NFL) custom title+description format
+      const proFormat = PRO_LEAGUE_FORMATS[league.id];
+      if (proFormat && hasTeams) {
+        const homeShort  = proShort(proFormat.shortNames, event.strHomeTeam);
+        const awayShort  = proShort(proFormat.shortNames, event.strAwayTeam);
         const fullMatch  = escapeXML(`${event.strHomeTeam} vs. ${event.strAwayTeam}`);
         const shortMatch = escapeXML(`${homeShort} vs. ${awayShort}`);
-        const dateStr    = formatNHLDateEST(event.dateEvent, event.strTime);
+        const dateStr    = formatEventDateLabelEST(event.dateEvent, event.strTime);
         const liveDesc   = event.strDescriptionEN
           ? escapeXML(event.strDescriptionEN)
-          : `NHL Hockey: ${fullMatch}`;
+          : `${proFormat.sportLabel}: ${fullMatch}`;
 
         // Block 1: Next Game
         allProgrammes += `  <programme start="${preStart}" stop="${matchStart}" channel="${channelId}">\n`;
         allProgrammes += `    <title lang="en">Next Game: ${fullMatch}</title>\n`;
         allProgrammes += `    <desc lang="en">Next Game: ${shortMatch} on ${dateStr}</desc>\n`;
-        allProgrammes += `    <category lang="en">NHL</category>\n`;
+        allProgrammes += `    <category lang="en">${league.name}</category>\n`;
         if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
         allProgrammes += `  </programme>\n\n`;
 
         // Block 2: Live Game
         allProgrammes += `  <programme start="${matchStart}" stop="${matchEnd}" channel="${channelId}">\n`;
-        allProgrammes += `    <title lang="en">NHL Hockey: ${fullMatch}</title>\n`;
+        allProgrammes += `    <title lang="en">${proFormat.sportLabel}: ${fullMatch}</title>\n`;
         allProgrammes += `    <desc lang="en">${liveDesc}</desc>\n`;
-        allProgrammes += `    <category lang="en">NHL</category>\n`;
+        allProgrammes += `    <category lang="en">${league.name}</category>\n`;
         if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
         allProgrammes += `  </programme>\n\n`;
 
@@ -293,7 +409,7 @@ async function generateEPG(todayOnly = false) {
         allProgrammes += `  <programme start="${matchEnd}" stop="${postEnd}" channel="${channelId}">\n`;
         allProgrammes += `    <title lang="en">Event Over</title>\n`;
         allProgrammes += `    <desc lang="en">${fullMatch} — game ended.</desc>\n`;
-        allProgrammes += `    <category lang="en">NHL</category>\n`;
+        allProgrammes += `    <category lang="en">${league.name}</category>\n`;
         if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
         allProgrammes += `  </programme>\n\n`;
 
