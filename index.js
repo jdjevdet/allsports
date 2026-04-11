@@ -197,9 +197,27 @@ function escapeXML(str) {
     .replace(/"/g, '&quot;');
 }
 
+// --- 4b. EASTERN-TIME CALENDAR DATE HELPERS ---
+// DST-aware: converts via Intl rather than a fixed UTC offset so the
+// "today" window matches America/New_York regardless of EST/EDT.
+const NY_DATE_FMT = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/New_York',
+  year: 'numeric', month: '2-digit', day: '2-digit',
+});
+function nyDateStringOfEvent(dateEvent, strTime) {
+  if (!dateEvent) return null;
+  const [y, m, d]  = dateEvent.split('-').map(Number);
+  const [h, mi, s] = (strTime || '00:00:00').split(':').map(Number);
+  return NY_DATE_FMT.format(new Date(Date.UTC(y, m - 1, d, h, mi, s || 0)));
+}
+function nyDateStringNow() {
+  return NY_DATE_FMT.format(new Date());
+}
+
 // --- 5. BUILD THE COMBINED XML FILE ---
-async function generateEPG() {
-  console.log(`[${new Date().toISOString()}] Starting EPG generation for all leagues...`);
+async function generateEPG(todayOnly = false) {
+  const today = todayOnly ? nyDateStringNow() : null;
+  console.log(`[${new Date().toISOString()}] Starting EPG generation for all leagues${todayOnly ? ` (today only: ${today})` : ''}...`);
 
   let allChannels   = '';
   let allProgrammes = '';
@@ -218,6 +236,8 @@ async function generateEPG() {
     for (const event of events) {
       const hasTeams = event.strHomeTeam && event.strAwayTeam;
       if (!hasTeams && !event.strEvent) continue;
+
+      if (todayOnly && nyDateStringOfEvent(event.dateEvent, event.strTime) !== today) continue;
 
       const channelId  = `${league.prefix}-match-${event.idEvent}`;
       const rawTitle   = hasTeams ? `${event.strHomeTeam} vs ${event.strAwayTeam}` : event.strEvent;
@@ -336,13 +356,16 @@ app.get('/', (req, res) => {
 });
 
 // --- 7. SCHEDULE DAILY AUTO-REFRESH ---
+// Runs at 3 AM Eastern (DST-aware) and filters the XML to today's events only.
+// Boot-time generation deliberately does NOT filter, so a restart never
+// strips upcoming fixtures from the served feed between cron runs.
 cron.schedule('0 3 * * *', () => {
   console.log('Running scheduled EPG refresh...');
-  generateEPG();
-});
+  generateEPG(true);
+}, { timezone: 'America/New_York' });
 
 // --- 8. START SERVER + GENERATE ON BOOT ---
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  generateEPG();
+  generateEPG(false);
 });
