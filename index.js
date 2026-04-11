@@ -210,18 +210,6 @@ async function generateEPG() {
 
     const events = await fetchFixtures(league.id);
 
-    const now = new Date();
-    const liveIds = new Set(
-      events
-        .filter(e => {
-          if (!e.dateEvent || !e.strTime) return false;
-          const start = new Date(`${e.dateEvent}T${e.strTime}Z`);
-          const end   = new Date(start.getTime() + (league.duration || 120) * 60 * 1000);
-          return now >= start && now <= end;
-        })
-        .map(e => e.idEvent)
-    );
-
     if (events.length === 0) {
       console.log(`  No fixtures found for ${league.name}, skipping.`);
       continue;
@@ -231,11 +219,9 @@ async function generateEPG() {
       const hasTeams = event.strHomeTeam && event.strAwayTeam;
       if (!hasTeams && !event.strEvent) continue;
 
-      const isLive     = liveIds.has(event.idEvent);
       const channelId  = `${league.prefix}-match-${event.idEvent}`;
       const rawTitle   = hasTeams ? `${event.strHomeTeam} vs ${event.strAwayTeam}` : event.strEvent;
       const matchTitle = escapeXML(rawTitle);
-      const liveTag    = isLive ? ' 🔴 LIVE' : '';
 
       // Channel block
       allChannels += `  <channel id="${channelId}">\n`;
@@ -277,8 +263,8 @@ async function generateEPG() {
 
         // Block 2: Live Game
         allProgrammes += `  <programme start="${matchStart}" stop="${matchEnd}" channel="${channelId}">\n`;
-        allProgrammes += `    <title lang="en">NHL Hockey: ${fullMatch}${liveTag}</title>\n`;
-        allProgrammes += `    <desc lang="en">${isLive ? '🔴 LIVE - ' : ''}${liveDesc}</desc>\n`;
+        allProgrammes += `    <title lang="en">NHL Hockey: ${fullMatch}</title>\n`;
+        allProgrammes += `    <desc lang="en">${liveDesc}</desc>\n`;
         allProgrammes += `    <category lang="en">NHL</category>\n`;
         if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
         allProgrammes += `  </programme>\n\n`;
@@ -305,8 +291,8 @@ async function generateEPG() {
 
       // Block 2: The Match
       allProgrammes += `  <programme start="${matchStart}" stop="${matchEnd}" channel="${channelId}">\n`;
-      allProgrammes += `    <title lang="${league.lang}">${matchTitle}${liveTag}</title>\n`;
-      allProgrammes += `    <desc lang="${league.lang}">${isLive ? '🔴 LIVE - ' : ''}${league.name} - ${matchTitle} | ${event.dateEvent}</desc>\n`;
+      allProgrammes += `    <title lang="${league.lang}">${matchTitle}</title>\n`;
+      allProgrammes += `    <desc lang="${league.lang}">${league.name} - ${matchTitle} | ${event.dateEvent}</desc>\n`;
       allProgrammes += `    <category lang="en">${league.name}</category>\n`;
       if (thumb) allProgrammes += `    <icon src="${thumb}" />\n`;
       allProgrammes += `  </programme>\n\n`;
