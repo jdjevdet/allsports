@@ -24,10 +24,10 @@ const LEAGUES = [
   // Motorsport
   { id: '4370', name: 'Formula 1',        prefix: 'f1',           lang: 'en' },
   // Combat Sports & Wrestling
-  { id: '4445', name: 'Boxing',           prefix: 'boxing',       lang: 'en' },
-  { id: '4443', name: 'UFC',              prefix: 'ufc',          lang: 'en' },
-  { id: '4444', name: 'WWE',              prefix: 'wwe',          lang: 'en' },
-  { id: '4563', name: 'AEW',              prefix: 'aew',          lang: 'en' },
+  { id: '4445', name: 'Boxing',           prefix: 'boxing',       lang: 'en', duration: 300 },
+  { id: '4443', name: 'UFC',              prefix: 'ufc',          lang: 'en', duration: 300 },
+  { id: '4444', name: 'WWE',              prefix: 'wwe',          lang: 'en', duration: 180 },
+  { id: '4563', name: 'AEW',              prefix: 'aew',          lang: 'en', duration: 180 },
   // UEFA Club Competitions
   { id: '4480', name: 'UEFA Champions League',  prefix: 'ucl',  lang: 'en' },
   { id: '4481', name: 'UEFA Europa League',     prefix: 'uel',  lang: 'en' },
@@ -127,7 +127,7 @@ async function generateEPG() {
         .filter(e => {
           if (!e.dateEvent || !e.strTime) return false;
           const start = new Date(`${e.dateEvent}T${e.strTime}Z`);
-          const end   = new Date(start.getTime() + 120 * 60 * 1000);
+          const end   = new Date(start.getTime() + (league.duration || 120) * 60 * 1000);
           return now >= start && now <= end;
         })
         .map(e => e.idEvent)
@@ -160,7 +160,7 @@ async function generateEPG() {
       }
 
       const matchStart = toXMLTVDate(event.dateEvent, event.strTime);
-      const matchEnd   = shiftMinutes(matchStart, 120);
+      const matchEnd   = shiftMinutes(matchStart, league.duration || 120);
       const preStart   = shiftMinutes(matchStart, -720);
       const postEnd    = shiftMinutes(matchEnd, 720);
       const thumb      = event.strThumb || '';
